@@ -6,8 +6,7 @@
   margin: 25px 0px;
 }
 .app__category {
-  border: 1px solid black;
-  width: 1000px;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
