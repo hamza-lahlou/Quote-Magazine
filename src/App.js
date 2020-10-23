@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import Head from "./components/Head";
 import QuoteCategory from "./components/QuoteCategory";
@@ -39,17 +38,19 @@ function App() {
   //-----------------------------------------------------------------------------//
   const [genreIsAtive, SetGenreIsActive] = useState(false);
   const [quotes, setQuotes] = useState([]);
+  const [quoteAuthor, setQuoteAuthor] = useState([]);
   const clickHandler = async (path) => {
     const response = await fetch(
-      `https://quote-garden.herokuapp.com/api/v2/genres/${path}?page=1&limit=10`
+      `https://quote-garden.herokuapp.com/api/v2/genres/${path}?page=1&limit=100`
     );
     const { quotes } = await response.json();
     for (const q of quotes) {
       setQuotes((old) => [...old, q.quoteText]);
+      setQuoteAuthor((ol) => [...ol, q.quoteAuthor]);
     }
-    SetGenreIsActive(false);
+    SetGenreIsActive(true);
   };
-  console.log(quotes);
+
   return !genreIsAtive ? (
     <div className="app">
       <h3>Quote Magazin</h3>
@@ -58,6 +59,7 @@ function App() {
         {genres.map((g) => {
           return (
             <QuoteCategory
+              key={g}
               genre={g}
               handleClick={() => {
                 clickHandler(g);
@@ -68,11 +70,13 @@ function App() {
       </div>
     </div>
   ) : (
-    <div>
-      {quotes.map((a) => {
-        return <Head quoteOfTheDay={a} />;
+    <div className="app">
+      <button className="back__button" onClick={() => SetGenreIsActive(false)}>
+        Back
+      </button>
+      {quotes.map((a, index) => {
+        return <Head quoteOfTheDay={a} author={quoteAuthor[index]} />;
       })}
-      <button onClick={() => SetGenreIsActive(false)}>Back</button>;
     </div>
   );
 }
