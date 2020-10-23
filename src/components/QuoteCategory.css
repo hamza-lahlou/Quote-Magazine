@@ -1,0 +1,25 @@
+.quoteCategory {
+  width: 120px;
+  height: 60px;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 6px 18px -9px rgba(0, 0, 0, 0.75);
+  transition: transform 100ms ease-in;
+  cursor: pointer;
+  margin: 10px;
+}
+.quoteCategory:hover {
+  background-color: black;
+  color: white;
+  transform: scale(1.07);
+}
+.link,
+.link:focus,
+.link:hover,
+.link:visited,
+.link:link,
+.link:active {
+  text-decoration: none;
+  color: black;
+}
